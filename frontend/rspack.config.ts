@@ -65,6 +65,13 @@ export default defineConfig({
 		css: true
 	},
 	devServer: {
+		allowedHosts: 'all',
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+			'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization, X-CSRF-Token',
+			'Access-Control-Request-Headers': 'Content-Type, X-CSRF-Token'
+		},
 		proxy: [
 			{
 				context: ['/api'],

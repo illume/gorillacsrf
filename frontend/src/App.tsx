@@ -2,11 +2,61 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
+
+
+// Fetch the CSRF token from the headers
+async function getCsrfToken() {
+	const response = await fetch('/api/user/1');
+	const csrfToken = response.headers.get('X-CSRF-Token');
+	return csrfToken;
+}
+
+async function makeRequest(endpoint: string, formData: Record<string, unknown>) {
+	try {
+		const csrfToken = await getCsrfToken();
+    alert(csrfToken);
+    const headers = {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken || ''
+    };
+    alert(JSON.stringify(headers));
+
+		const response = await fetch(`/${endpoint}`, {
+			method: 'POST',
+			headers: headers,
+			body: JSON.stringify(formData),
+      credentials: 'include',
+		});
+
+    alert(response.status);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+		const result = await response.json();
+    alert(JSON.stringify(result));
+
+	} catch (err) {
+		// Handle the exception
+		console.error('Error:', err);
+	}
+}
+
+const endpoint = 'api/number';
+const formData = { key: 'value' };
+
+
 function App() {
 	const [count, setCount] = useState(0);
 
 	return (
 		<div className="App">
+			{/* <form>
+				<input type="hidden" name="csrftokenxxxx" value="hidden" />
+				<input type="text" placeholder="Type something" />
+				<button type="submit">Submit</button>
+			</form> */}
+      <button onClick={() => makeRequest(endpoint, formData)}>Make Request</button>
+
 			<div>
 				<a href="https://reactjs.org" target="_blank" rel="noreferrer">
 					<img src={reactLogo} className="logo react" alt="React logo" />
