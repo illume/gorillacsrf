@@ -8,3 +8,11 @@ cd frontend
 npm install
 npm run dev
 ```
+
+
+Basic gorilla backend.
+```
+cd backend
+go run main.go
+```
+
