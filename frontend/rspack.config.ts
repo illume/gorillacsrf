@@ -63,5 +63,14 @@ export default defineConfig({
 	},
 	experiments: {
 		css: true
+	},
+	devServer: {
+		proxy: [
+			{
+				context: ['/api'],
+				target: 'http://localhost:9090',
+				changeOrigin: true,
+			},
+		],
 	}
 });
