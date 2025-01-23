@@ -67,10 +67,11 @@ export default defineConfig({
 	devServer: {
 		allowedHosts: 'all',
 		headers: {
-			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Origin': 'http://localhost:8080/, http://localhost:9090/',
 			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
 			'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization, X-CSRF-Token',
-			'Access-Control-Request-Headers': 'Content-Type, X-CSRF-Token'
+			'Access-Control-Request-Headers': 'Content-Type, Authorization, X-CSRF-Token',
+			'Access-Control-Allow-Credentials': 'true',
 		},
 		proxy: [
 			{

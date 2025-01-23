@@ -12,7 +12,9 @@ import (
 func main() {
 	r := mux.NewRouter()
 	csrfMiddleware := csrf.Protect([]byte("32-byte-long-auth-key"),
-		csrf.TrustedOrigins([]string{"localhost"}))
+		csrf.Path("/api"),
+		csrf.TrustedOrigins([]string{"http://localhost:8080"}),
+	)
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.Use(csrfMiddleware)

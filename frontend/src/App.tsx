@@ -19,7 +19,6 @@ async function makeRequest(endpoint: string, formData: Record<string, unknown>) 
       'Content-Type': 'application/json',
       'X-CSRF-Token': csrfToken || ''
     };
-    alert(JSON.stringify(headers));
 
 		const response = await fetch(`/${endpoint}`, {
 			method: 'POST',
@@ -28,8 +27,9 @@ async function makeRequest(endpoint: string, formData: Record<string, unknown>) 
       credentials: 'include',
 		});
 
-    alert(response.status);
+    alert(response.status + response.statusText);
     if (!response.ok) {
+      console.error('Fetch error:', response.statusText);
       throw new Error('Network response was not ok');
     }
 		const result = await response.json();
